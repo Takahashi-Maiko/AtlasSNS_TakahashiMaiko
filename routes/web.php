@@ -38,3 +38,9 @@ Route::get('/search','UsersController@index');
 
 Route::get('/follow-list','PostsController@index');
 Route::get('/follower-list','PostsController@index');
+
+// 新規登録
+Route::get('/register','Auth/RegisterController@register');
+
+// ログイン時
+Route::post('/login','LoginController@login');

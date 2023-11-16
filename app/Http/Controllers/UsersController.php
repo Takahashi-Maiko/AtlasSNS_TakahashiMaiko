@@ -13,4 +13,15 @@ class UsersController extends Controller
     public function search(){
         return view('users.search');
     }
+
+    // 新規登録メソッド
+    //     public function profile(){
+    //     return view('users.profile');
+    // }
+
+    // ログインメソッド
+        public function users(){
+        return view('users.profile');
+    }
+
 }
