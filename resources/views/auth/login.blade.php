@@ -2,10 +2,11 @@
 
 @section('content')
 <!-- 適切なURLを入力してください -->
-{!! Form::open(['url' => '/Users']) !!}
+{!! Form::open(['url' => '/top']) !!}
 
 <p>AtlasSNSへようこそ</p>
 
+<!-- FormはPOST通信 -->
 {{ Form::label('e-mail') }}
 {{ Form::text('mail',null,['class' => 'input']) }}
 {{ Form::label('password') }}
