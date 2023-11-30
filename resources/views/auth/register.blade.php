@@ -3,10 +3,10 @@
 @section('content')
 
 <!-- バリデーションメッセージ -->
-@if ($extends->any())
+@if ($errors->any())
 <div class="register_error">
  <ul>
-  @foreach (errors->all() as $error)
+  @foreach ($errors->all() as $error)
   <li>{{ $error }}</li>
   @endforeach
  </ul>
