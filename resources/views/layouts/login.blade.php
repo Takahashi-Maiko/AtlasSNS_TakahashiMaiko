@@ -22,16 +22,19 @@
 <body>
     <header>
         <div id = "head">
-        <h1><a><img src="images/logo.png"></a></h1>
+                <!-- ↓↓Atlasロゴにトップページへ遷移するリンクを設置する -->
+        <h1><a href="/top"><img src="images/atlas.png" alt="Atlas"></a></h1>
             <div id="">
                 <div id="">
-                    <p>〇〇さん<img src="images/arrow.png"></p>
+                    <!-- ↓↓ログイン後のページでの名前の表示 -->
+                    <p>{{  Auth::user()->username  }}さん<img src="images/arrow.png"></p>
                 <div>
                 <ul>
                     <li><a href="/top">ホーム</a></li>
                     <li><a href="/profile">プロフィール</a></li>
                     <li><a href="/logout">ログアウト</a></li>
                 </ul>
+                <div class="icon"><img src="images/icon1.png"></div>
             </div>
         </div>
     </header>

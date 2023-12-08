@@ -20,27 +20,25 @@
 
 
 //ログアウト中のページ
-Route::get('/login', 'Auth\LoginController@login');
+Route::get('/login', 'Auth\LoginController@login')->name('login');   //未認証のユーザーをログイン画面へ飛ばすために->name('login')を記述する。
 Route::post('/login', 'Auth\LoginController@login');
 
 Route::get('/register', 'Auth\RegisterController@registerView');
 Route::post('/register', 'Auth\RegisterController@register');
 
+
 Route::get('/added', 'Auth\RegisterController@added');
 Route::post('/added', 'Auth\RegisterController@added');
 
 //ログイン中のページ
-Route::get('/top','PostsController@index');
+Route::get('/top','PostsController@index')->middleware('auth') ;   //トップページへ
 
-Route::get('/profile','UsersController@profile');
+Route::get('/profile','UsersController@profile')->middleware('auth') ;   //プロフィール編集ページへ
 
-Route::get('/search','UsersController@index');
+Route::get('/search','UsersController@index')->middleware('auth') ;   //ユーザー検索
 
-Route::get('/follow-list','PostsController@index');
-Route::get('/follower-list','PostsController@index');
-
-// 新規登録
-// Route::get('/register','Auth/RegisterController@register');
+Route::get('/follow-list','PostsController@index')->middleware('auth') ;   //フォローリスト
+Route::get('/follower-list','PostsController@index')->middleware('auth') ;   //フォロワーリスト
 
 // ログイン後
 Route::post('/top','UsersController@profile');

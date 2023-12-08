@@ -44,6 +44,33 @@ class RegisterController extends Controller
 
     // 新規登録処理
     public function registerView(Request $request){
+        // if($request->isMethod('post')){
+
+        //     //入力したデータを取得
+        //     //POSTの場合の処理
+        //     $username = $request->input('username');
+        //     $mail = $request->input('mail');
+        //     $password = $request->input('password');
+
+        //     User::create([
+        //         'username' => $username,
+        //         'mail' => $mail,
+        //         'password' => bcrypt($password),
+        //     ]);
+
+        //     // セッション機能でのユーザーネームの保存
+        //     $input = $request->session()->put('username', $username);
+        //     return redirect('added')->with('username', $username);
+        // }
+        //GETの場合の処理
+        return view('auth.register');
+
+        // $validated = $request->validated();
+    }
+
+
+    public function register(RegisterFormRequest $request){
+        $validated = $request->validated();
         if($request->isMethod('post')){
 
             //入力したデータを取得
@@ -60,17 +87,9 @@ class RegisterController extends Controller
 
             // セッション機能でのユーザーネームの保存
             $input = $request->session()->put('username', $username);
-            return redirect('added')->with('username', $input);
+            return redirect('added')->with('username', $username);
         }
-        //GETの場合の処理
-        return view('auth.register');
 
-        // $validated = $request->validated();
-    }
-
-    //バリデーション機能
-    public function register(RegisterFormRequest $request){
-        $validated = $request->validated();
         }
 
 
