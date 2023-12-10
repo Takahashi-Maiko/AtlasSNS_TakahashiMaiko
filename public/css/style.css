@@ -1,22 +1,68 @@
 @charset "utf-8";
-html{
-}
-body{
-}
+
+html {}
+
+body {}
+
 /* header */
-header{
-    background:#186AC9;
+header {
+    background: #186AC9;
 }
 
 /* main content */
-#row{
+#row {
     display: flex;
     flex-flow: row wrap;
 }
-#container{
+
+#container {
     flex: 0 0 80%;
 }
-#side-bar{
+
+#side-bar {
     flex: 0 0 19%;
     border-left: 1px solid #727272;
+}
+
+/* アコーディオンメニュー */
+#accordion {
+    position: relative;
+    display: flex;
+    text-align: center;
+}
+
+/* ↓↓開いたままにしない設定 */
+.accordion-container ul {
+    display: none;
+}
+
+.accordion-contents {
+    display: none;
+    position: relative;
+    /* margin-left: 100px; */
+    float: right;
+    /* outline: 0; */
+    border-top: none;
+    /* outline: 0; */
+}
+
+.accordion-switch::after {
+    content: ">";
+    position: absolute;
+    /* display: block; */
+    color: #fff;
+    background-color: #186AC9;
+    width: 8px;
+    height: 8px;
+    right: 40px;
+    top: 0px;
+    transform: rotate(90deg);
+    transform: translateY();
+}
+
+.accordion-container ul li {
+    padding: 20px;
+    border: 1px solid;
+    white-space: nowrap;
+    text-align: center;
 }

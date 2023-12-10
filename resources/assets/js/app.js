@@ -20,3 +20,13 @@ Vue.component('example', require('./components/Example.vue'));
 const app = new Vue({
     el: '#app'
 });
+
+// $(function () {
+//     $(".js-accordion-title").on("click", function () {
+//         $(this).next().slideToggle(200);
+//         $(this).toggleClass("open", 200);
+//     });
+// });
+// // ↑↑$("[対象の要素]").on("click", function () {
+// //     /* 処理内容 */
+// // });
