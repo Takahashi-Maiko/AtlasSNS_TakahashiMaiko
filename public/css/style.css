@@ -32,9 +32,9 @@ header {
 }
 
 /* ↓↓開いたままにしない設定 */
-.accordion-container ul {
+/* .accordion-container ul {
     display: none;
-}
+} */
 
 .accordion-contents {
     display: none;
@@ -46,10 +46,14 @@ header {
     /* outline: 0; */
 }
 
-.accordion-switch::after {
+.accordion-switch.open .accordion-contents {
+    display: block;
+}
+
+.accordion-switch:after {
     content: ">";
     position: absolute;
-    /* display: block; */
+    display: block;
     color: #fff;
     background-color: #186AC9;
     width: 8px;
@@ -57,7 +61,13 @@ header {
     right: 40px;
     top: 0px;
     transform: rotate(90deg);
-    transform: translateY();
+    /* transform: rotateY(); */
+}
+
+/* 矢印の反転?? */
+.accordion-switch.open:after {
+    transform: rotate(270deg) translate(-50%, -80%);
+    /* transform: rotate(0.75turn); */
 }
 
 .accordion-container ul li {
