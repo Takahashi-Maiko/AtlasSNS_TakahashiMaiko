@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+// use illuminate\Support\Facades\Auth;   //logout追記
 
 class LoginController extends Controller
 {
@@ -50,5 +51,10 @@ class LoginController extends Controller
             }
         }
         return view("auth.login");
+    }
+
+    public function logout(Request $request){
+        Auth::logout;
+        return redirect()->route('login');
     }
 }

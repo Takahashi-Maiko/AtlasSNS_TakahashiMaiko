@@ -35,6 +35,8 @@ Route::get('/top','PostsController@index')->middleware('auth') ;   //トップ�
 
 Route::get('/profile','UsersController@profile')->middleware('auth') ;   //プロフィール編集ページへ
 
+Route::get('/logout','Auth\LoginController@login');   //ログアウト機能 @logout→→@loginへ変更
+
 Route::get('/search','UsersController@index')->middleware('auth') ;   //ユーザー検索
 
 Route::get('/follow-list','PostsController@index')->middleware('auth') ;   //フォローリスト
