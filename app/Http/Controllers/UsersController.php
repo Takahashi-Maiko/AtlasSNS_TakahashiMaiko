@@ -27,8 +27,8 @@ class UsersController extends Controller
     }
 
 
-    //↓↓フォロー機能の実装
-    //ログインしているユーザーがフォローしている人数の取得(フォロー数)
+    // ↓↓フォロー機能の実装
+    // ログインしているユーザーがフォローしている人数の取得(フォロー数)
     // public function follow(){
     //     $follow = Follows::get();   //followsテーブルからレコードを取得
     // }

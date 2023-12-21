@@ -49,21 +49,23 @@
         </div >
         <div id="side-bar">
             <div id="confirm">
-                <p>〇〇さんの</p>
+                <p>{{  Auth::user()->username  }}さんの</p>
                 <div>
                 <p>フォロー数</p>
-                <p>〇〇名</p>
+                <p>{{  Auth::user()->follows()->count()  }}名</p>
                 </div>
                 <p class="btn"><a href="/follow-list">フォローリスト</a></p>
                 <div>
                 <p>フォロワー数</p>
-                <p>〇〇名</p>
+                <p>{{  Auth::user()->followers()->count()  }}名</p>
                 </div>
                 <p class="btn"><a href="./follower-list">フォロワーリスト</a></p>
             </div>
             <p class="btn"><a href="search">ユーザー検索</a></p>
         </div>
     </div>
+
+
     <footer>
     </footer>
     <script src="JavaScriptファイルのURL"></script>
