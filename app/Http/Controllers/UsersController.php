@@ -13,13 +13,35 @@ class UsersController extends Controller
         return view('users.profile');
     }
     public function search(){
-        return view('users.search');
+        //ユーザー一覧をページネートで取得
+        $users = User::paginate(20);
+
+        //viewファイルに変数として渡す
+        return view('users.search')->with([
+            'users'=>$users,
+            'search'=>$search,
+        ]);
     }
 
-    // 新規登録メソッド
-    //     public function profile(){
-    //     return view('users.profile');
-    // }
+    // ユーザー検索の処理の実装
+    public function searchView(Request $request){
+
+        //キーワード取得
+        $keyword = $request->input('keyword');
+
+         // クエリビルダ
+        $query = User::query();
+
+        //キーワードがあった場合
+        if(!empty($keyword)){
+            $query -> orwhere('username','like','%' . $keyword . '%')->get();
+        }
+
+        //全件取得＋ページネーション
+        $data = $query->orderBy('create_at','desc')->paginate(5);
+        return view('users.search')->with('data',$data)->with('keyword',$keyword);
+    }
+
 
     // ログインメソッド
         public function users(){
@@ -27,15 +49,7 @@ class UsersController extends Controller
     }
 
 
-    // ↓↓フォロー機能の実装
-    // ログインしているユーザーがフォローしている人数の取得(フォロー数)
-    // public function follow(){
-    //     $follow = Follows::get();   //followsテーブルからレコードを取得
-    // }
 
-    // //ログインしているユーザーをフォローしている人数の取得(フォロワー数)
-    // public function follower(){
-    //      $follower = Follows::get();   //followsテーブルからレコードを取得
-    // }
+
 
 }
