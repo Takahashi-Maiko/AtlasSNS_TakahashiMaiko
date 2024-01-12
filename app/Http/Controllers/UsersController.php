@@ -30,56 +30,80 @@ class UsersController extends Controller
         //     })->get();
 
         //追記(2024/1/10)
-        if($users){   //ユーザー名が入力されてたらの処理
-            $keyword = User::where('username','LIKE',"%$users%")->paginate(20);
+        $keyword = $request->input('search');   //'search'にはblade.phpのname属性を記述。(name属性で指定したキーが連想配列のキーの役割を持っている)
+          if (isset($keyword)) {
+        // if($users){   //ユーザー名が入力されてたらの処理
+            $users = User::where('username','LIKE',"%$keyword%")->paginate(20);
             //where()でUserモデルを利用してテーブルのnameカラムを取得
         }else{   //ユーザー名が入力されていない場合の処理
-            $keyword = User::select('*')->paginate(20);
+        $users = User::paginate(20);
+            // $keyword = User::select('*')->paginate(20);
             //ユーザー名が入力されていない場合は全件表示させることにする。
-            $users = '全件表示';
+            // $users = '全件表示';
         }
 
 
                 //viewファイルに変数として渡す
         return view('users.search')->with([
-            'users'=>$users,
-            // 'search'=>$search,
+            'users'=>$users,   //検索語にユーザー名を表示させる
+            'keyword'=>$keyword,   //検索ワードを表示させる
         ]);
 
     }
 
+    //↓↓フォロー(2024/1/12)
+    public function follow(User $user)
+    {
+        $follower = auth()->user();
+        //↓↓フォローしているか
+        $is_following = $follower->isFollowing($user->id);
+        if(!$is_following){
+        //↓↓フォローしていなければフォローする
+        $follower->follow($user->id);
+        return back();
+        }
+    }
 
-        //viewファイルに変数として渡す
-        // return view('users.search')->with([
-        //     'users'=>$users,
-        //     // 'search'=>$search,
-        // ]);
+    //フォロー解除(2024/1/12)
+    public function unfollow(User $user)
+    {
+        $follower = auth()->user();
+        //↓↓フォローしているか
+        $is_following = $follower->isFollowing($user->id);
+        if(!$is_following){
+        //フォローしていればフォローを解除する
+        $follower->unfollow($user->id);
+        return back();
+    }
+    }
+
+
 
 
     // ユーザー検索の処理の実装
-    public function searchView(Request $request){
+    // public function searchView(Request $request){
 
-        //キーワード取得
-        $keyword = $request->input('keyword');
+    //     //キーワード取得
+    //     $keyword = $request->input('keyword');
 
-         // クエリビルダ
-        // $query = User::query();
+    //      // クエリビルダ
+    //     // $query = User::query();
 
-        //キーワードがあった場合
-        // if(!empty($keyword)){
-        //     $query -> orwhere('username','like','%' . $keyword . '%')->get();
-        // }
+    //     //キーワードがあった場合
+    //     // if(!empty($keyword)){
+    //     //     $query -> orwhere('username','like','%' . $keyword . '%')->get();
+    //     // }
 
-        //全件取得＋ページネーション
-        $data = $query->orderBy('create_at','desc')->paginate(5);
-        return view('users.search')->with('data',$data)->with('keyword',$keyword);
-    }
+    //     //全件取得＋ページネーション
+    //     $data = $query->orderBy('create_at','desc')->paginate(5);
+    //     return view('users.search')->with('data',$data)->with('keyword',$keyword);
+    // }
 
 
     // ログインメソッド
-        public function users(){
-        return view('users.profile');
-    }
+    //     public function users(){
+    //     return view('users.profile');
+    // }
 
 
 
