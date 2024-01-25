@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Users;
-// use App\Posts;
-// use App\Follow;
+use App\User;
+use App\Post;
+use App\Follow;
 
 class FollowsController extends Controller
 {
@@ -28,11 +28,14 @@ class FollowsController extends Controller
         'follows' => $follows
         ]);
     }
+
+
     public function followerList(){   //フォロワーリスト
         // フォロワーをすべて取得 12/17
         $followers = auth()->user()->followers()->get();
 
-
+        //フォローされているユーザーのIDを取得
+        $following_id = Auth::user()->follows()->pluck('following_id');
 
 
         return view('follows.followerList',[
@@ -42,8 +45,27 @@ class FollowsController extends Controller
         ]);
     }
 
-    // public function follow(Request $request)   //2024/1/12フォロー機能の実装
-    // {
+    public function follow(User $user)   //(2024/1/19)フォローする機能の実装
+    {
+        $follower = auth()->user();
+        //↓↓フォローしているかの確認
+        $is_following = $follower->isFollowing($user->id);
+        if(!$is_following){
+            //↓↓フォローしていなければフォローする
+            $follower->follow($user->id);
+            return back();
+        }
+    }
 
-    // }
+    public function unfollow(User $user)   //(2024/1/19)フォロー解除機能の実装
+    {
+        $follower = auth()->user();
+        //↓↓フォローしているかの確認
+        $is_following = $follower->isFollowing($user->id);
+        if(is_following){
+            //↓↓フォローしていなければフォロー解除する
+            $follower->unfollow($user->id);
+            return back();
+        }
+    }
 }
