@@ -28,15 +28,25 @@
 <!-- ↓↓フォローボタンの設置(2024/1/21) -->
 <!-- csrfはform毎に記述が必要 -->
 @if (auth()->user()->isFollowed($user->id))
-<form action="users/{id}/follow"method="POST">
+<!-- <form action="users/{$id}/follow" method="POST">
+   @csrf
+   <button type="submit" class="unfollow-btn">フォロー解除</button>
+</form> -->
+<form action="{{ route('unfollow',['id' => $user->id]) }}" method="POST">
    @csrf
    <button type="submit" class="unfollow-btn">フォロー解除</button>
 </form>
+
 @else
-<form action="users/{id}/unfollow"method="POST">
+<!-- <form action="users/{$id}/unfollow" method="POST">
+   @csrf
+  <button type="submit" class="follow-btn">フォローする</button>
+</form> -->
+<form action="{{ route('follow',['id' => $user->id]) }}" method="POST">
    @csrf
   <button type="submit" class="follow-btn">フォローする</button>
 </form>
+
 @endif
 </div>
 @endif

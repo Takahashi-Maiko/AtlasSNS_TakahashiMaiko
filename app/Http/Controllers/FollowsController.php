@@ -45,8 +45,9 @@ class FollowsController extends Controller
         ]);
     }
 
-    public function follow(User $user)   //(2024/1/19)フォローする機能の実装
+    public function follow(User $user,$id)   //(2024/1/19)フォローする機能の実装
     {
+         $user = User::find($id);
         //ログイン中のユーザーを取得
         $follower = auth()->user();
         //↓↓フォローしているかの確認
@@ -58,13 +59,14 @@ class FollowsController extends Controller
         }
     }
 
-    public function unfollow(User $user)   //(2024/1/19)フォロー解除機能の実装
+    public function unfollow(User $user,$id)   //(2024/1/19)フォロー解除機能の実装
     {
+         $user = User::find($id);
         //ログイン中のユーザーを取得
         $follower = auth()->user();
         //  dd($user->id);
         //↓↓フォローしているかの確認
-        $is_followed = $follower->isFollowing($user->id);
+        $is_followed = $follower->isFollowed($user->id);
         if($is_followed){
             //↓↓フォローしていればフォロー解除する
             $follower->unfollow($user->id);
