@@ -46,5 +46,9 @@ Route::get('/follower-list','PostsController@index')->middleware('auth') ;   //�
 Route::post('/users/{id}/follow','FollowsController@follow')->name('follow');   //フォローする
 Route::post('/users/{id}/unfollow','FollowsController@unfollow')->name('unfollow');   //フォロー解除する
 
+//投稿機能の追加
+Route::get('/top','PostsController@index');   //
+Route::post('/top','PostsController@post')->name('post');   //投稿の登録機能
+
 // ログイン後
 Route::post('/top','UsersController@profile');
