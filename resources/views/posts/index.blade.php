@@ -14,12 +14,12 @@
  <button type="submit" class="tweet-btn"><img src="images/post.png" alt="送信"></button>
 
  <!-- ↓↓バリデーションのif文でエラーが無い場合には表示しないように設定。 -->
-  @if($errors->first('tweet'))
+  @if($errors->first('post'))
   @endif
 
   @foreach($post as $posts)
   <div class="post-content">
-    <div>{{ $post->post }}</div>
+    <div>{{ $posts->post }}</div>
   </div>
 
   @endforeach
