@@ -10,10 +10,9 @@ class PostsController extends Controller
 {
     //投稿の表示
     public function index(){
-        $post = Post::latest()->get();   //Postテーブルに保存されたツイートを新着順で取得。get()はデータベースから全てを取得する。
+        $post = Post::latest()->first();   //Postテーブルに保存されたツイートを新着順で取得。get()はデータベースから全てを取得する。
         $user_id = auth()->user();
         return view('posts.index',compact('post'),[  //compact('post')で$postをビューに送る
-            // 'user' => $user
     ]);
     }
 
@@ -25,10 +24,10 @@ class PostsController extends Controller
         ]);
         $post = $request->input('newpost');
         Post::create([   //Postテーブルに入れる
-            'user_id' => Auth::user()->user_id,   //Auth::user()はログインしているユーザーの取得(ツイートしたユーザー)
+            'user_id' => Auth::user()->id,   //Auth::user()はusersテーブルのカラムからログインしているユーザーのidを取得(ツイートしたユーザー)
             'post' => $request->newPost,   //つぶやきの内容
         ]);
-        // return redirect('/top');
-        return back();
+        return redirect('/top');
+        // return back();
     }
 }

@@ -19,7 +19,11 @@
 
   @foreach($post as $posts)
   <div class="post-content">
-    <div>{{ $posts->post }}</div>
+    <tr>
+      <td>{{ $post->user->username }}</td>
+      <td>{{ $post->post}}</td>
+      <td>{{ $post->create_at }}</td>
+    </tr>
   </div>
 
   @endforeach
