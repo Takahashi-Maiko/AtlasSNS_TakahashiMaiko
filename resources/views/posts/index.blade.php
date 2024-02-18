@@ -20,6 +20,7 @@
   @foreach($post as $posts)
   <div class="post-content">
     <tr>
+      <!-- postsテーブルのとusersテーブルのリレーションを行う(1(users)対多(posts)の関係) -->
       <td>{{ $post->user->username }}</td>
       <td>{{ $post->post}}</td>
       <td>{{ $post->create_at }}</td>
