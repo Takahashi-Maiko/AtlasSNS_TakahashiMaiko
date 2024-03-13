@@ -39,16 +39,18 @@ Route::get('/logout','Auth\LoginController@logout');   //ログアウト機能 @
 
 Route::get('/search','UsersController@search')->name('users.search')->middleware('auth') ;   //ユーザー検索
 
-Route::get('/follow-list','PostsController@index')->middleware('auth') ;   //フォローリスト
-Route::get('/follower-list','PostsController@index')->middleware('auth') ;   //フォロワーリスト
+Route::get('/follow-list','FollowsController@followList')->middleware('auth') ;   //フォローリスト
+Route::get('/follower-list','FollowsController@followerList')->middleware('auth') ;   //フォロワーリスト
 
 //↓↓フォローとフォロー解除機能の追加
 Route::post('/users/{id}/follow','FollowsController@follow')->name('follow');   //フォローする
 Route::post('/users/{id}/unfollow','FollowsController@unfollow')->name('unfollow');   //フォロー解除する
 
 //投稿機能の追加
-Route::get('/top','PostsController@index')->middleware('auth') ;
+Route::get('/top','PostsController@index')->middleware('auth') ;   //投稿の表示画面
 Route::post('/top','PostsController@post')->name('post');   //投稿の登録機能
+Route::post('/post/postUpdate','PostsController@postUpdate')->middleware('auth');   //投稿の編集機能
+Route::get('/top/{id}/delete','PostsController@delete')->name('delete');   //投稿の削除機能
 
 // ログイン後
 Route::post('/update','UsersController@profile');

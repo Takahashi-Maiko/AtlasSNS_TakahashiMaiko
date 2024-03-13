@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Post;
 use App\Follow;
@@ -10,42 +11,52 @@ use App\Follow;
 class FollowsController extends Controller
 {
     //
-    public function followList(){   //フォローリスト
+    public function followList(){   //フォローリストの表示(ログインユーザーがフォローしている相手)
         // フォローしているユーザーをすべて取得 12/17
         $follows = Auth::user()->follows()->get();
 
 
         // //フォローしているユーザーのidを取得
-        $following_id = Auth::user()->follows()->pluck('followed_id');
+        $followed_id = Auth::user()->follows()->pluck('following_id');  //pluckを使い複数の'following_id'(ログインユーザーがフォローしているユーザー)を取得する。
 
         // // フォローしているユーザーのidを元に投稿内容を取得
-        $posts = Post::with('user')->whereIn('followed_id', $following_id)->get();
+        // $posts = Post::with('user')->whereIn('followed_id', $following_id)->get();
 
+        //↓↓Postモデルの中のuser_idが、Auth::user()->follows()->pluck('followed_id')の自分がフォローしている相手のユーザーidを取得して、latest()->get()で最新順に投稿を取得する。   2024/3/13
+        $post = Post::with('user')->whereIn('user_id', Auth::user()->follows()->pluck('following_id'))->latest()->get();
+        return view('follows.followList')->with([
+            'post' => $post,
+            'follows' => $follows
+            ]);
 
-
-        return view('follows.followList', [
-        'posts' => $posts,
-        'follows' => $follows
-        ]);
+        // return view('follows.followList', [
+        // 'posts' => $posts,
+        // 'follows' => $follows
+        // ]);
     }
 
-
-    public function followerList(){   //フォロワーリスト
+    public function followerList(){   //フォロワーリストの表示(ログインユーザーの事をフォローしている人達)
         // フォロワーをすべて取得 12/17
-        $followers = auth()->user()->followers()->get();
+        $followers = Auth::user()->followers()->get();
 
         //フォローされているユーザーのIDを取得
-        $following_id = Auth::user()->follows()->pluck('following_id');
+        $following_id = Auth::user()->follows()->pluck('followed_id');   //pluckを使い複数の'followed_id'(ログインユーザーの事をフォローしているユーザー)を取得する。
 
+        //↓↓Postモデルの中のuser_idが、Auth::user()->follows()->pluck('followed_id')の自分の事をフォローしているユーザーのidを取得して、latest()->get()で最新順に投稿を取得する。  2024/3/13
+        $post = Post::with('user')->whereIn('user_id', Auth::user()->follows()->pluck('followed_id'))->latest()->get();
+        return view('follows.followerList')->with([
+            'post' => $post,
+            'followers' => $followers
+            ]);
 
-        return view('follows.followerList',[
-            'posts' => $posts,
-            'follows' => $follows
+        // return view('follows.followerList',[
+        //     'posts' => $posts,
+        //     'follows' => $follows
 
-        ]);
+        // ]);
     }
 
-    public function follow(User $user,$id)   //(2024/1/19)フォローする機能の実装
+    public function follow(User $user,$id)   //(2024/1/19)フォローする機能の実装(2024/1/31ｌ完成)
     {
          $user = User::find($id);
         //ログイン中のユーザーを取得
@@ -59,14 +70,14 @@ class FollowsController extends Controller
         }
     }
 
-    public function unfollow(User $user,$id)   //(2024/1/19)フォロー解除機能の実装
+    public function unfollow(User $user,$id)   //(2024/1/19)フォロー解除機能の実装(2024/1/31完成)
     {
          $user = User::find($id);
         //ログイン中のユーザーを取得
         $follower = auth()->user();
         //  dd($user->id);
         //↓↓フォローしているかの確認
-        $is_followed = $follower->isFollowed($user->id);
+        $is_followed = $follower->isFollowing($user->id);
         if($is_followed){
             //↓↓フォローしていればフォロー解除する
             $follower->unfollow($user->id);

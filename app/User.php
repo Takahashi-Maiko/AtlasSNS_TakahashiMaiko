@@ -73,4 +73,10 @@ class User extends Authenticatable
     {
         return (boolean) $this->followers()->where('following_id',$user_id)->first();
     }
+
+    //postテーブルとのリレーション
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
 }
