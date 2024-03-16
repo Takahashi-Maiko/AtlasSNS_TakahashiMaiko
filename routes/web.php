@@ -30,10 +30,12 @@ Route::post('/register', 'Auth\RegisterController@register');
 Route::get('/added', 'Auth\RegisterController@added');
 Route::post('/added', 'Auth\RegisterController@added');
 
+
 //ログイン中のページ
 Route::get('/top','PostsController@index')->middleware('auth') ;   //トップページへ
 
-Route::get('/profile','UsersController@profile')->middleware('auth') ;   //プロフィール編集ページへ
+Route::get('/profile','UsersController@profile')->middleware('auth') ;   //プロフィール編集ページの表示
+Route::post('/profile/update','UsersController@profileUpdate')->name('users.profileUpdate')->middleware('auth');   //プロフィール編集
 
 Route::get('/logout','Auth\LoginController@logout');   //ログアウト機能 @logout→→@loginへ変更
 
@@ -51,6 +53,3 @@ Route::get('/top','PostsController@index')->middleware('auth') ;   //投稿の�
 Route::post('/top','PostsController@post')->name('post');   //投稿の登録機能
 Route::post('/post/postUpdate','PostsController@postUpdate')->middleware('auth');   //投稿の編集機能
 Route::get('/top/{id}/delete','PostsController@delete')->name('delete');   //投稿の削除機能
-
-// ログイン後
-Route::post('/update','UsersController@profile');

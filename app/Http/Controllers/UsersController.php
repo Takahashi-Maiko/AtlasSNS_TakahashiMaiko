@@ -77,6 +77,36 @@ class UsersController extends Controller
     }
     }
 
+    // プロフィール編集の実装   2024/3/16
+    public function profileUpdate(Request $request){
+        $validator = Validator::make($request->all(),[
+          'username'  => 'required|min:2|max:12',
+          'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
+          'newpassword' => 'min:8|max:20|confirmed|alpha_num',
+          'newpassword_confirmation' => 'min:8|max:20|alpha_num',
+          'bio' => 'max:150',
+          'iconimage' => 'image',
+        ]);
+        // ↑↑DBに登録済みのメールアドレスはバリデーションで引っかかるように設定したい。
+        // unique('users')にするとusersテーブルに登録されているメールアドレスすべて＝ログインしているユーザーのメールアドレスも引っかかってしまう。
+        // ignoreメソッドを使うことで、ログインしているユーザーのID以外をバリデーションで引っかかるように設定する。
+
+        $user = Auth::user();   //ログインユーザーを取得する
+
+        // ↓↓画像の登録 2024/3/16
+        $image = $request->file('iconimage')->store('public/images');
+        $validator->validate();
+        $user->update([
+            'username' => $request->input('username'),
+            'mail' => $request->input('mail'),
+            'password' => bcrypt($request->input('newpassword')),
+            'bio' => $request->input('bio'),
+            'images' => basename($image),
+        ]);
+
+        return redirect('/profile');
+    }
+
 
 
 
