@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Follow;
 
@@ -79,23 +82,34 @@ class UsersController extends Controller
 
     // プロフィール編集の実装   2024/3/16
     public function profileUpdate(Request $request){
-        $validator = Validator::make($request->all(),[
-          'username'  => 'required|min:2|max:12',
-          'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
-          'newpassword' => 'min:8|max:20|confirmed|alpha_num',
-          'newpassword_confirmation' => 'min:8|max:20|alpha_num',
-          'bio' => 'max:150',
-          'iconimage' => 'image',
+
+        // $validator = $request->validate([
+        //   'username'  => 'required|min:2|max:12',
+        //   'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
+        //   'newpassword' => 'min:8|max:20|confirmed|alpha_num',
+        //   'newpassword_confirm' => 'min:8|max:20|alpha_num',
+        //   'bio' => 'max:150',
+        //   'iconimage' => 'image',
+        // ]);
+
+        $validator = Validator::make($request->all(),[   //バリデーションルール
+            'username'  => 'required|min:2|max:12',
+            'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
+            'newpassword' => 'min:8|max:20|confirmed|alpha_num',
+            'newpassword_confirm' => 'min:8|max:20|alpha_num',
+            'bio' => 'max:150',
+            'iconimage' => 'image',
         ]);
         // ↑↑DBに登録済みのメールアドレスはバリデーションで引っかかるように設定したい。
         // unique('users')にするとusersテーブルに登録されているメールアドレスすべて＝ログインしているユーザーのメールアドレスも引っかかってしまう。
         // ignoreメソッドを使うことで、ログインしているユーザーのID以外をバリデーションで引っかかるように設定する。
+        // dd($validator);
 
         $user = Auth::user();   //ログインユーザーを取得する
 
         // ↓↓画像の登録 2024/3/16
-        $image = $request->file('iconimage')->store('public/images');
-        $validator->validate();
+        // $image = $request->file('iconimage')->store('storage/images');
+        $validator ->validate();
         $user->update([
             'username' => $request->input('username'),
             'mail' => $request->input('mail'),
@@ -104,38 +118,8 @@ class UsersController extends Controller
             'images' => basename($image),
         ]);
 
-        return redirect('/profile');
+        return redirect('/top');
     }
-
-
-
-
-    // ユーザー検索の処理の実装
-    // public function searchView(Request $request){
-
-    //     //キーワード取得
-    //     $keyword = $request->input('keyword');
-
-    //      // クエリビルダ
-    //     // $query = User::query();
-
-    //     //キーワードがあった場合
-    //     // if(!empty($keyword)){
-    //     //     $query -> orwhere('username','like','%' . $keyword . '%')->get();
-    //     // }
-
-    //     //全件取得＋ページネーション
-    //     $data = $query->orderBy('create_at','desc')->paginate(5);
-    //     return view('users.search')->with('data',$data)->with('keyword',$keyword);
-    // }
-
-
-    // ログインメソッド
-    //     public function users(){
-    //     return view('users.profile');
-    // }
-
-
 
 
 
