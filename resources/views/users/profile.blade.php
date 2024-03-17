@@ -7,12 +7,18 @@
 <div class="container">
   <div class="update">
       <div class="user-icon"><img src="{{asset('storage/'.Auth::user()->images)}}" alt=""></div>
-   <Form method="POST" action="{{ route('users.profileUpdate') }}">
+   <Form method="POST" action="{{ route('users.profileUpdate') }}" enctype="multipart/form-data">
+      <!-- formタグにenctype="multipart/form-data"属性を用意する。ファイルアップロードをするためにはこれを書く必要がある。 -->
      @csrf
 
+      <!-- ↓↓バリデーションのif文でエラーが無い場合には表示しないように設定。 -->
+     @if($errors->first('post'))
+     @endif
 
-
-
+      <!-- バリデーションのエラー表示 -->
+     @foreach ($errors->all() as $error)
+     <li>{{$error}}</li>
+     @endforeach
 
       <div class="update-form">
            <!-- ↓↓ユーザー名 -->
@@ -30,14 +36,14 @@
            <!-- ↓↓パスワード -->
        <div class="update-block">
           <label for="pass">password</label>
-          <input type="password" name="newpassword" value="">
+          <input type="password" name="password" value="">
           <!-- ↑↑パスワードは初期値設定無し。input要素のtype属性に"password"を指定することで伏字になるように設定する。 -->
           <!-- また、label要素を使ってパスワード入力欄にラベルを付けることができる。 -->
        </div>
           <!-- ↓↓パスワード確認用 -->
        <div class="update-block">
           <label for="pass-comfirm">password comfirm</label>
-          <input type="password" name="newpassword-comfirm" value="">
+          <input type="password" name="password-comfirm" value="">
           <!-- ↑↑パスワードは初期値設定無し。input要素のtype属性に"password"を指定することで伏字になるように設定する。 -->
           <!-- また、label要素を使ってパスワード入力欄にラベルを付けることができる。 -->
        </div>

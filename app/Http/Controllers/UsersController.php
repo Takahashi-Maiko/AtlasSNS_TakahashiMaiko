@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Follow;
 
@@ -95,8 +97,8 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(),[   //バリデーションルール
             'username'  => 'required|min:2|max:12',
             'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
-            'newpassword' => 'min:8|max:20|confirmed|alpha_num',
-            'newpassword_confirm' => 'min:8|max:20|alpha_num',
+            'password' => 'min:8|max:20|alpha_num',
+            'password_confirm' => 'min:8|max:20|confirmed|alpha_num',
             'bio' => 'max:150',
             'iconimage' => 'image',
         ]);
@@ -109,14 +111,31 @@ class UsersController extends Controller
 
         // ↓↓画像の登録 2024/3/16
         // $image = $request->file('iconimage')->store('storage/images');
+        // $img=$request->iconimage->storeAs('storage');   //formで設置したname属性のiconimage
+        // dd($img);
+
+        if ($request->hasFile('iconimage')) {
+            $image = $request->file('iconimage')->store('public/images');
+            $imageName = basename($image);
+        } else {
+            $imageName = $user->images; //ない場合デフォルトの値を設定する
+        }
+
+
         $validator ->validate();
         $user->update([
             'username' => $request->input('username'),
             'mail' => $request->input('mail'),
-            'password' => bcrypt($request->input('newpassword')),
+            'password' => bcrypt($request->input('password')) >Hash::make($request->password),
             'bio' => $request->input('bio'),
-            'images' => basename($image),
+            // 'images' => basename($image),
         ]);
+
+        //新規パスワードの確認
+        $this->validator($request->all())->validate();
+
+        $user->password = bcrypt($request->password);
+        $user->save();
 
         return redirect('/top');
     }
