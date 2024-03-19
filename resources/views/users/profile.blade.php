@@ -42,8 +42,8 @@
        </div>
           <!-- ↓↓パスワード確認用 -->
        <div class="update-block">
-          <label for="pass-comfirm">password comfirm</label>
-          <input type="password" name="password-comfirm" value="">
+          <label for="pass-confirmation">password confirm</label>
+          <input type="password" name="password-confirmation" value="">
           <!-- ↑↑パスワードは初期値設定無し。input要素のtype属性に"password"を指定することで伏字になるように設定する。 -->
           <!-- また、label要素を使ってパスワード入力欄にラベルを付けることができる。 -->
        </div>

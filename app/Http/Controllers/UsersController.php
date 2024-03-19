@@ -85,20 +85,20 @@ class UsersController extends Controller
     // プロフィール編集の実装   2024/3/16
     public function profileUpdate(Request $request){
 
-        // $validator = $request->validate([
-        //   'username'  => 'required|min:2|max:12',
-        //   'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
-        //   'newpassword' => 'min:8|max:20|confirmed|alpha_num',
-        //   'newpassword_confirm' => 'min:8|max:20|alpha_num',
-        //   'bio' => 'max:150',
-        //   'iconimage' => 'image',
-        // ]);
+        $validator = $request->validate([
+          'username'  => 'required|min:2|max:12',
+          'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
+          'newpassword' => 'min:8|max:20|confirmed|alpha_num',
+          'newpassword_confirmation' => 'min:8|max:20|alpha_num',
+          'bio' => 'max:150',
+          'iconimage' => 'image',
+        ]);
 
         $validator = Validator::make($request->all(),[   //バリデーションルール
             'username'  => 'required|min:2|max:12',
             'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
-            'password' => 'min:8|max:20|alpha_num',
-            'password_confirm' => 'min:8|max:20|confirmed|alpha_num',
+            'password' => 'required|confirmed|min:8|max:20|alpha_num',
+            'password_confirmation' => 'required|min:8|max:20|alpha_num',
             'bio' => 'max:150',
             'iconimage' => 'image',
         ]);
@@ -126,16 +126,14 @@ class UsersController extends Controller
         $user->update([
             'username' => $request->input('username'),
             'mail' => $request->input('mail'),
-            'password' => bcrypt($request->input('password')) >Hash::make($request->password),
+            'password' => Hash::make($request->input('password')),
             'bio' => $request->input('bio'),
             // 'images' => basename($image),
         ]);
 
         //新規パスワードの確認
-        $this->validator($request->all())->validate();
-
-        $user->password = bcrypt($request->password);
-        $user->save();
+        // $this->validator($request->all())->validate();
+        // ↑↑Method App\Http\Controllers\UsersController::validator does not exist.が起きる 2024/3/17
 
         return redirect('/top');
     }
