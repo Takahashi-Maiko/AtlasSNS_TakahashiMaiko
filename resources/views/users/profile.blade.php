@@ -43,7 +43,7 @@
           <!-- ↓↓パスワード確認用 -->
        <div class="update-block">
           <label for="pass-confirmation">password confirm</label>
-          <input type="password" name="password-confirmation" value="">
+          <input type="password" name="password_confirmation" value="">
           <!-- ↑↑パスワードは初期値設定無し。input要素のtype属性に"password"を指定することで伏字になるように設定する。 -->
           <!-- また、label要素を使ってパスワード入力欄にラベルを付けることができる。 -->
        </div>
@@ -55,8 +55,9 @@
            <!-- アイコン画像アップロード(任意) -->
        <div class="update-block">
           <label for="icon">icon image</label>
-          <input type="file" name="iconimage" value="">
+          <input type="file" name="iconimage" accept='image/png, image/jpeg, image/bmp, image/gif, image/svg'>
           <!-- ↑↑<input type="file">でファイルのアップロードボタンを設置する。 -->
+          <!-- ↑↑accept属性を指定することでアップロード出来るものを画像に限定できる。 -->
        </div>
             <!-- 更新ボタン(更新ボタンを押したら入力された内容を保存しTOPページへ推移する。) -->
        <input type="submit" class="update-btn" value="更新">

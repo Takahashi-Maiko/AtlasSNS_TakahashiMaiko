@@ -97,14 +97,15 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(),[   //バリデーションルール
             'username'  => 'required|min:2|max:12',
             'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
-            'password' => 'required|confirmed|min:8|max:20|alpha_num',
+            'password' => 'required|confirmed|min:8|max:20|alpha_num',   //confirmedでpassword_confirmationとパスワードが一致するか確認する。
             'password_confirmation' => 'required|min:8|max:20|alpha_num',
             'bio' => 'max:150',
-            'iconimage' => 'image',
+            'iconimage' => 'required|file|image|mimes:png,jpeg,bmp,gif,svg',
         ]);
         // ↑↑DBに登録済みのメールアドレスはバリデーションで引っかかるように設定したい。
         // unique('users')にするとusersテーブルに登録されているメールアドレスすべて＝ログインしているユーザーのメールアドレスも引っかかってしまう。
         // ignoreメソッドを使うことで、ログインしているユーザーのID以外をバリデーションで引っかかるように設定する。
+        // 'iconimage'のfile(ファイルアップロード形式)、image(画像)、mimes(png,jpeg,bmp,gif,svgのみ許可)
         // dd($validator);
 
         $user = Auth::user();   //ログインユーザーを取得する
@@ -113,9 +114,10 @@ class UsersController extends Controller
         // $image = $request->file('iconimage')->store('storage/images');
         // $img=$request->iconimage->storeAs('storage');   //formで設置したname属性のiconimage
         // dd($img);
-
         if ($request->hasFile('iconimage')) {
-            $image = $request->file('iconimage')->store('public/images');
+            $image = $request->file('iconimage')->store('storage/images');
+            // ↑↑<input type="file" name="iconimage" />から渡される値を受け取るにはfile()関数を使う。
+            // ↑↑保存するためにstore('storage/images')を記述。※store('ディレクトリ/ディスク')
             $imageName = basename($image);
         } else {
             $imageName = $user->images; //ない場合デフォルトの値を設定する
@@ -128,12 +130,11 @@ class UsersController extends Controller
             'mail' => $request->input('mail'),
             'password' => Hash::make($request->input('password')),
             'bio' => $request->input('bio'),
-            // 'images' => basename($image),
+            'images' => basename($image),
         ]);
 
-        //新規パスワードの確認
-        // $this->validator($request->all())->validate();
-        // ↑↑Method App\Http\Controllers\UsersController::validator does not exist.が起きる 2024/3/17
+
+        // 2024/3/19 アイコンアップロード出来ない。
 
         return redirect('/top');
     }
