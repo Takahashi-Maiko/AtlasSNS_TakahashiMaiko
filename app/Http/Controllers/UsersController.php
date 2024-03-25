@@ -85,15 +85,6 @@ class UsersController extends Controller
     // プロフィール編集の実装   2024/3/16
     public function profileUpdate(Request $request){
 
-        $validator = $request->validate([
-          'username'  => 'required|min:2|max:12',
-          'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
-          'newpassword' => 'min:8|max:20|confirmed|alpha_num',
-          'newpassword_confirmation' => 'min:8|max:20|alpha_num',
-          'bio' => 'max:150',
-          'iconimage' => 'image',
-        ]);
-
         $validator = Validator::make($request->all(),[   //バリデーションルール
             'username'  => 'required|min:2|max:12',
             'mail' => ['required', 'min:5', 'max:40', 'email', Rule::unique('users')->ignore(Auth::id())],
@@ -115,13 +106,15 @@ class UsersController extends Controller
         // $img=$request->iconimage->storeAs('storage');   //formで設置したname属性のiconimage
         // dd($img);
         if ($request->hasFile('iconimage')) {
-            $image = $request->file('iconimage')->store('storage/images');
+            $imageName = $request->file('iconimage')->getClientOriginalName();
+
+            $image = $request->file('iconimage')->storeAs('public/images',$imageName);
             // ↑↑<input type="file" name="iconimage" />から渡される値を受け取るにはfile()関数を使う。
             // ↑↑保存するためにstore('storage/images')を記述。※store('ディレクトリ/ディスク')
-            $imageName = basename($image);
         } else {
             $imageName = $user->images; //ない場合デフォルトの値を設定する
         }
+        // dd($imageName);
 
 
         $validator ->validate();
@@ -130,7 +123,7 @@ class UsersController extends Controller
             'mail' => $request->input('mail'),
             'password' => Hash::make($request->input('password')),
             'bio' => $request->input('bio'),
-            'images' => basename($image),
+            'images' => $imageName,
         ]);
 
 
