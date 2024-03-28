@@ -23,11 +23,11 @@
 <div>
 @if(!($user->username == Auth::user()->username))
   {{$user->username}}
-  <img src="{{$user->images}}" alt="ユーザーアイコン">
+  <img src="{{asset('storage/images/' .$user->images)}}" alt="ユーザーアイコン">
 
 <!-- ↓↓フォローボタンの設置(2024/1/21) -->
 <!-- csrfはform毎に記述が必要 -->
-@if (auth()->user()->isFollowed($user->id))
+@if (auth()->user()->isFollowing($user->id))
 <!-- <form action="users/{$id}/follow" method="POST">
    @csrf
    <button type="submit" class="unfollow-btn">フォロー解除</button>

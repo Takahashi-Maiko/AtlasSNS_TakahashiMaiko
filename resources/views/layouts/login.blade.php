@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }} ">
     <!-- ↓↓jQueryをリンクさせる。 -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
     <!--スマホ,タブレット対応-->
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <!--サイトのアイコン指定-->
@@ -29,7 +29,8 @@
         <h1><a href="/top"><img src="images/atlas.png" alt="Atlas"></a></h1>
             <div id="accordion" class="accordion-container">
                 <!-- ↓↓ログイン後のページでの名前の表示 -->
-                <p>{{  Auth::user()->username  }}さん<img src="images/icon1.png"></p>
+                <!-- <p>{{  Auth::user()->username  }}さん<img src="images/icon1.png"></p> -->
+                <p>{{  Auth::user()->username  }}さん<img src="{{asset('storage/images/'.Auth::user()->images)}}"></p>
                 <div class="accordion-switch">
                  <ul class="accordion-contents">
                     <li><a href="/top">ホーム</a></li>
@@ -37,8 +38,6 @@
                     <li><a href="/logout">ログアウト</a></li>
                  </ul>
                 </div>
-
-                <!-- <div class="icon"><img src="images/icon1.png"></div> -->
             </div>
         </div>
     </header>

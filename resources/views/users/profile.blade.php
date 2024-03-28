@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="update">
-      <div class="user-icon"><img src="{{asset('public/images'.Auth::user()->images)}}" alt=""></div>
+      <div class="user-icon"><img src="{{asset('storage/images/'.Auth::user()->images)}}" alt=""></div>
    <Form method="POST" action="{{ route('users.profileUpdate') }}" enctype="multipart/form-data">
       <!-- formタグにenctype="multipart/form-data"属性を用意する。ファイルアップロードをするためにはこれを書く必要がある。 -->
      @csrf
