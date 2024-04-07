@@ -126,13 +126,17 @@ class UsersController extends Controller
             'images' => $imageName,
         ]);
 
-
-
-        // 2024/3/19 アイコンアップロード出来ない。
-
         return redirect('/top');
     }
 
+    // ↓↓他ユーザーのアイコンからプロフィール表示 2024/3/29
+    public function otherProfile($id){
+        $users = User::where('id',$id)->first();   //Userモデルからユーザーのidを取得する。
+        // dump($id);
+        // dd($id);
+
+        return view('users.otherprofile',compact('users'));
+    }
 
 
 }
