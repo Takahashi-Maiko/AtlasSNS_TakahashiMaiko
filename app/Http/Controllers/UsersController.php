@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Follow;
+use App\Post;
 
 class UsersController extends Controller
 {
@@ -133,9 +134,15 @@ class UsersController extends Controller
     public function otherProfile($id){
         $users = User::where('id',$id)->first();   //Userモデルからユーザーのidを取得する。
         // dump($id);
+        $id = User::where('id',$id)->first();
         // dd($id);
 
-        return view('users.otherprofile',compact('users'));
+        $post = Post::with('user')->whereIn('user_id', Auth::user()->followers()->pluck('following_id'))->latest()->get();
+
+        return view('users.otherprofile',[
+            'id' =>$id, 'users' => $users, 'post' => $post
+        ]);
+
     }
 
 
