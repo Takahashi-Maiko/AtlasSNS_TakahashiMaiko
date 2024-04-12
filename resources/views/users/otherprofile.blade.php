@@ -16,16 +16,14 @@
    </div>
 
     <!-- ↓↓クリックしたユーザーの投稿を表示させたい -->
-    @foreach($id as $ids)
     <div class="otheruser-posts">
 
       <ul>
         <li class="user-icon"><img class="usericon-img" src="{{asset('storage/images/'.$id->images)}}" alt="ユーザーアイコン"></li></div>
         <li class="username">{{ $id->username }}</li>
-        <li class="post">{{ $id->$post }}</li>
+        <li class="post">{{ $id->post }}</li>
       </ul>
 
-      @endforeach
 </div>
 
 

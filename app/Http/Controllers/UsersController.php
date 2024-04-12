@@ -137,7 +137,9 @@ class UsersController extends Controller
         $id = User::where('id',$id)->first();
         // dd($id);
 
-        $post = Post::with('user')->whereIn('user_id', Auth::user()->followers()->pluck('following_id'))->latest()->get();
+        // $post = Post::with('user')->whereIn('user_id', Auth::user()->followers()->pluck('following_id'))->latest()->get();
+        $post = Post::where('post', $users->id) ->orderBy('created_at', 'desc')->get();
+        // dd($post);
 
         return view('users.otherprofile',[
             'id' =>$id, 'users' => $users, 'post' => $post
