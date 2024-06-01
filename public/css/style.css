@@ -131,15 +131,35 @@ h1 img {
 
 .accordion-switch {
     position: relative;
-    margin-top: 1.5rem;
-    width: 2vw;
+    cursor: pointer;
+    /* margin-top: 1.5rem; */
+    /* width: 2vw; */
+}
 
+.accordion-switch:after {
+    content: ">";
+    position: absolute;
+    right: 8px;
+    top: 300px;
+    width: 8px;
+    display: block;
+    color: #fff;
+    /* right: 0.5rem; */
+    /* transform: rotate(90deg); */
+    transform: rotateY(90deg);
+    margin-top: 2rem;
+    /* right: 20px; */
+}
+
+.accordion-switch.open:after {
+    transform: rotate(270deg) translate(-50%, -80%);
+    transform: rotate(0.75turn);
 }
 
 .accordion-contents {
     /* display: none; */
     border: #000;
-    margin-top: 2rem;
+    margin-top: 5rem;
 }
 
 
@@ -165,23 +185,8 @@ h1 img {
     display: block;
 } */
 
-.accordion-switch:after {
-    content: ">";
-    /* position: absolute; */
-    display: block;
-    color: #fff;
-    /* right: 0.5rem; */
-    /* transform: rotate(90deg); */
-    transform: rotateY(90deg);
-    margin-top: 2rem;
-    /* right: 20px; */
-}
 
 /* 矢印の反転?? */
-.accordion-switch.open:after {
-    transform: rotate(270deg) translate(-50%, -80%);
-    transform: rotate(0.75turn);
-}
 
 
 
@@ -337,15 +342,20 @@ textarea {
     position: absolute;
     right: 0;
     margin-top: 4rem;
+    /* -webkit-transform: translate(-50%, -50%); */
     transform: translate(-50%, -50%);
     display: block;
-    width: 30px;
-    height: 30px;
+    width: 2.3vw;
+    height: 4vh;
     border-radius: 5px;
+    background-color: #FFF;
 }
+
+
 
 .delete-btn:hover img:nth-of-type(2) {
     opacity: 0;
+    /* ↑↑透明度 */
 }
 
 

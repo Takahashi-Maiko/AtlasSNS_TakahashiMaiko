@@ -63,9 +63,9 @@
     <!-- ↓↓削除ボタン -->
       <div class=delete-btn>
         <a href="/top/{{ $posts->id }}/delete" onclick="return confirm('この投稿を削除します。よろしいでしょうか？')">
-        <img class="delete-img" src="images/trash.png" width="25px" height="25px" alt="削除前">
-        <!-- ↓↓ホバー時に削除ボタンの色が反転する為(削除ボタンを押したとき)。 -->
-        <img class="delete-img" src="images/trash-h.png" width="25px" height="25px" alt="削除時"></a>
+          <img class="delete-img" src="images/trash-h.png" alt="削除時">
+          <!-- ↓↓ホバー時に削除ボタンの色が反転する為(削除ボタンを押したとき)。 -->
+          <img class="deleted-img" src="images/trash.png" alt="削除前"></a>
       </div>
     </ul>
     @endif
