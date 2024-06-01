@@ -48,6 +48,9 @@ Route::get('/follower-list','FollowsController@followerList')->middleware('auth'
 Route::post('/users/{id}/follow','FollowsController@follow')->name('follow');   //フォローする
 Route::post('/users/{id}/unfollow','FollowsController@unfollow')->name('unfollow');   //フォロー解除する
 
+// ↓↓他ユーザーのアイコンからプロフィールを表示させる
+Route::get('/users/{id}/otherprofile','UsersController@otherProfile')->middleware('auth') ;
+
 //投稿機能の追加
 Route::get('/top','PostsController@index')->middleware('auth') ;   //投稿の表示画面
 Route::post('/top','PostsController@post')->name('post');   //投稿の登録機能

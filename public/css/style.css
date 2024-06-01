@@ -1,15 +1,115 @@
 @charset "utf-8";
 
-html {}
+html {
+    height: 100%;
+}
 
-body {}
+body {
+    min-height: 100%;
+}
+
+
+button {
+    border: none;
+    background-color: transparent;
+    /* buttonタグの背景色と枠線を消す。transparentは透明色。 */
+}
+
+
 
 /* header */
 header {
     background: #186AC9;
+    display: block;
+    position: relative;
+    height: 5rem;
 }
 
+h1 {
+    width: 100%;
+}
+
+h1 img {
+    width: 6rem;
+    margin-top: 1.5rem;
+    margin-left: 1.7rem;
+}
+
+/* sidebar */
+#side-bar {
+    position: relative;
+}
+
+#confirm {
+    border-bottom: solid 2px #dcdcdc;
+    margin-bottom: 1rem;
+}
+
+#confirm div {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+#confirm p {
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+#confirm button {
+    border: none;
+    background-color: #186AC9;
+    border-radius: 5px;
+    height: 30px;
+    width: 120px;
+}
+
+#confirm button a {
+    color: #FFF;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    /* ↑↑.button-containerにdisplay: flex;とjustify-content: flex-end;が適用されており、子要素のボタンが容器の右端に配置される。 */
+}
+
+.search_button {
+    text-align: center;
+}
+
+.btn-search {
+    text-align: center;
+    background-color: #186AC9;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    width: 150px;
+}
+
+.btn-search a {
+    color: #FFF;
+}
+
+
+
 /* main content */
+#head {
+    display: flex
+}
+
+#head p {
+    color: #f0f8ff;
+    white-space: nowrap;
+    margin-top: 2rem;
+    margin-right: 3rem;
+}
+
+#head .icon img {
+    width: 3rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
 #row {
     display: flex;
     flex-flow: row wrap;
@@ -25,54 +125,382 @@ header {
 }
 
 /* アコーディオンメニュー */
-#accordion {
-    position: relative;
-    display: flex;
-    text-align: center;
+.accordion {
+    text-align: right;
 }
 
-/* ↓↓開いたままにしない設定 */
-/* .accordion-container ul {
-    display: none;
-} */
+.accordion-switch {
+    position: relative;
+    margin-top: 1.5rem;
+    width: 2vw;
+
+}
 
 .accordion-contents {
-    display: none;
-    position: relative;
-    /* margin-left: 100px; */
-    float: right;
-    /* outline: 0; */
-    border-top: none;
-    /* outline: 0; */
+    /* display: none; */
+    border: #000;
+    margin-top: 2rem;
 }
 
-.accordion-switch.open .accordion-contents {
-    display: block;
+
+.accordion-contents li {
+    white-space: nowrap;
+    /* ↑↑折り返さないよう設定 */
+    text-align: center;
+    border: solid 1px;
+    height: 11vh;
+    width: 20vw;
+    background-color: #186AC9;
 }
+
+.accordion-contents li a {
+    color: #FFF;
+}
+
+.box1 {
+    background-color: #FFF;
+}
+
+/* .accordion-switch.open .accordion-contents {
+    display: block;
+} */
 
 .accordion-switch:after {
     content: ">";
-    position: absolute;
+    /* position: absolute; */
     display: block;
     color: #fff;
-    background-color: #186AC9;
-    width: 8px;
-    height: 8px;
-    right: 40px;
-    top: 0px;
-    transform: rotate(90deg);
-    /* transform: rotateY(); */
+    /* right: 0.5rem; */
+    /* transform: rotate(90deg); */
+    transform: rotateY(90deg);
+    margin-top: 2rem;
+    /* right: 20px; */
 }
 
 /* 矢印の反転?? */
 .accordion-switch.open:after {
     transform: rotate(270deg) translate(-50%, -80%);
-    /* transform: rotate(0.75turn); */
+    transform: rotate(0.75turn);
 }
 
-.accordion-container ul li {
-    padding: 20px;
-    border: 1px solid;
-    white-space: nowrap;
-    text-align: center;
+
+
+/* ↓↓投稿の編集の際のモーダル機能 2024/2/24 */
+.edit-content {
+    margin: 0 auto;
+    /* padding: 40px; */
+}
+
+/* モーダルの中身である.modalはデフォルトでdisplay:noneに設定しておく必要がある。ボタンが押されたらモーダルを表示する為。 */
+.modal {
+    display: none;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.modal__bg {
+    background: rgba(0, 0, 0, 0.6);
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+}
+
+.modal__content {
+    background: #fff;
+    left: 50%;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 30%;
+    width: 50%;
+    border-radius: 10px;
+}
+
+textarea {
+    height: 25vh;
+    width: 50vw;
+}
+
+.modal__content input {
+    width: 3vw;
+    margin-left: 50%;
+}
+
+/* 投稿入力部分(index.blade.php) */
+.user-icon {
+    /* width: 10%; */
+    margin-left: 4rem;
+}
+
+.user-icon img {
+    width: 45px;
+    margin-right: 2%;
+}
+
+.container {
+    border-bottom: solid 10px #dcdcdc;
+    display: flex;
+    height: 25%;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+
+.form-group input {
+    /* position: relative; */
+    left: 0%;
+    top: 0rem;
+}
+
+
+.form-control {
+    width: 50vw;
+    height: 15vh;
+    margin-right: 2rem;
+    border: none;
+}
+
+/* ::placeholder {
+    position: relative;
+    margin-top: 0%;
+} */
+
+.tweet-btn {
+    margin-right: 3em;
+    position: absolute;
+    margin-top: 3rem;
+    height: 50px;
+    width: 50px;
+    background-image: url(../images/post.png);
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    border: none;
+}
+
+
+
+/* 投稿の表示 */
+.post-block {
+    list-style: none;
+    border-bottom: 1px solid #000;
+    display: flex;
+    /* width: 100%; */
+    padding: 15px;
+    /* position: relative;
+    width: 100%;
+    padding: 15px;
+    border-bottom: solid 1px #727272; */
+}
+
+.post-content {
+    width: 100%;
+    padding: 15px;
+}
+
+.post-content>div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.username {
+    margin-bottom: 10px;
+}
+
+.icon {
+    width: 7%;
+    height: 7%;
+    margin-left: 5rem;
+}
+
+/* 編集ボタン */
+.edit-img {
+    position: absolute;
+    right: 25%;
+    margin-top: 3.2rem;
+    /* bottom: 0; */
+    display: block;
+}
+
+
+
+/* 削除ボタン */
+.delete-btn {
+    position: relative;
+    bottom: 0;
+}
+
+.delete-btn img {
+    position: absolute;
+    right: 0;
+    margin-top: 4rem;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.delete-btn:hover img:nth-of-type(2) {
+    opacity: 0;
+}
+
+
+/* プロフィール編集画面 */
+
+.edit-container {
+    display: flex;
+    justify-content: center;
+}
+
+.update-form {
+    width: 50vw;
+}
+
+.update-box {
+    display: flex;
+}
+
+.update-area {
+    margin-top: 2rem;
+}
+
+.update-block {
+    margin-top: 2rem;
+}
+
+.edit-icon {
+    height: 10vh;
+    width: 3vw;
+    margin-top: 3.5rem;
+    margin-right: 2rem;
+}
+
+.edit-icon img {
+    width: 3vw;
+}
+
+
+.update-block label {
+    display: inline-block;
+    width: 15vw;
+}
+
+.update-block input {
+    height: 5vh;
+    width: 20vw;
+}
+
+/* .input-file {
+    height: 10vh;
+    width: 20vw;
+} */
+
+.update-button {
+    margin-left: 10rem;
+    margin-top: 2rem;
+}
+
+.update-btn {
+    height: 5vh;
+    width: 10vw;
+    border-radius: 5px;
+    border: none;
+    background-color: crimson;
+    color: #FFF;
+}
+
+
+/* ユーザー検索 */
+.search-container {
+    display: inline-block;
+    border-bottom: solid 10px #dcdcdc;
+    display: flex;
+    height: 15%;
+    width: 100%;
+    margin-top: 2em;
+}
+
+.search-form {
+    display: inline-flex;
+
+}
+
+.search-container input {
+    height: 3em;
+    width: 20em;
+    margin-left: 20%;
+}
+
+.button-search {
+    margin-left: 1rem;
+    width: 50px;
+    background-image: url(../images/search.png);
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+}
+
+.keyword {
+    margin-top: 1rem;
+    margin-left: 5rem;
+    /* 検索ワードの表示 */
+}
+
+
+.user-block ul {
+    border: none;
+}
+
+
+.user-block {
+    margin-left: 5rem;
+}
+
+.user-box {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: center;
+    text-align: left;
+}
+
+.user-area {
+    display: flex;
+    width: 35%;
+}
+
+.search-image img {
+    width: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 1rem;
+}
+
+.search-name {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.user-box form {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.unfollow-btn {
+    color: #FFF;
+    background-color: #FF0000;
+    border-radius: 5px;
+    height: 30px;
+    width: 120px;
+}
+
+.follow-btn {
+    color: #FFF;
+    background-color: #66CCFF;
+    border-radius: 5px;
+    height: 30px;
+    width: 120px;
 }

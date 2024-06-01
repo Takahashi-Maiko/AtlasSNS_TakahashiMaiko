@@ -17,7 +17,8 @@
 <!-- 適切なURLを入力してください -->
 {!! Form::open(['url' => '/register']) !!}
 
-<h2>新規ユーザー登録</h2>
+<div class=registerform-box>
+ <p>新規ユーザー登録</p>
 
 <!-- FormはPOST通信 -->
 {{ Form::label('ユーザー名') }}
@@ -27,14 +28,16 @@
 {{ Form::text('mail',null,['class' => 'input']) }}
 
 {{ Form::label('パスワード') }}
-{{ Form::text('password',null,['class' => 'input']) }}
+{{ Form::password('password',null,['class' => 'input']) }}
 
 {{ Form::label('パスワード確認') }}
-{{ Form::text('password_confirmation',null,['class' => 'input']) }}
+{{ Form::password('password_confirmation',null,['class' => 'input']) }}
 
-{{ Form::submit('登録') }}
+{{ Form::submit('新規登録') }}
 
 <p><a href="/login">ログイン画面へ戻る</a></p>
+
+</div>
 
 {!! Form::close() !!}
 

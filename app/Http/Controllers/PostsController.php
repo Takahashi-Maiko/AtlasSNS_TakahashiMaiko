@@ -18,6 +18,7 @@ class PostsController extends Controller
 
         // ↓↓orwhereを使い複数の条件を付ける。①whereInを使ってユーザーIDとフォローしているユーザーのID、②orwhereを使ってログインしているユーザーのIDに当てはまる投稿を取得する為にorwhereを使用する。
         $post = Post::orderBy('created_at','desc')->whereIn('user_id', Auth::user()->follows()->pluck('followed_id'))->orwhere('user_id',Auth::id())->latest()->get();
+        // dd($post);
 
         $user_id = Auth::user()->id;
         $username = Auth::user()->username;

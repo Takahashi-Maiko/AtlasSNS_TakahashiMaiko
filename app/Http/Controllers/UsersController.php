@@ -133,16 +133,17 @@ class UsersController extends Controller
     // ↓↓他ユーザーのアイコンからプロフィール表示 2024/3/29
     public function otherProfile($id){
         $users = User::where('id',$id)->first();   //Userモデルからユーザーのidを取得する。
-        // dump($id);
         $id = User::where('id',$id)->first();
         // dd($id);
 
         // $post = Post::with('user')->whereIn('user_id', Auth::user()->followers()->pluck('following_id'))->latest()->get();
-        $post = Post::where('post', $users->id) ->orderBy('created_at', 'desc')->get();
+        $post = Post::where('user_id', $users->id) ->orderBy('created_at', 'desc')->get();
+        // Postモデルからアイコンをクリックしたユーザー($users)の投稿を新着順に取得する
         // dd($post);
+        // dump($posts);
 
         return view('users.otherprofile',[
-            'id' =>$id, 'users' => $users, 'post' => $post
+            'id' => $id, 'users' => $users, 'post' => $post
         ]);
 
     }

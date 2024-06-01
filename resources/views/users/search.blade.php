@@ -3,72 +3,59 @@
 @section('content')
 
 
+<div class="search-container">
+  <form method="GET" action="{{ route('users.search') }}">
+    <div class="search-form">
+      <input type="search" placeholder="ユーザー名" name="search" value="@if (isset($search)) {{ $search }} @endif">
+        <button type="submit" class="button-search"></button>
+    </div>
+    </form>
 
-<form method="GET" action="{{ route('users.search') }}">
-<input type="search" placeholder="ユーザー名を入力" name="search" value="@if (isset($search)) {{ $search }} @endif">
-<button type="submit" class=""> <img src="./images/search.png"></button>
-</form>
-
-<!-- 検索キーワードの表示 -->
-@if(!empty($keyword))
-<p>検索ワード:{{$keyword}}</p>
-@endif
+    <!-- 検索キーワードの表示 -->
+    @if(!empty($keyword))
+    <div class="keyword">
+      <p>検索ワード:{{$keyword}}</p>
+    </div>
+    @endif
+  </div>
 
 <!-- 保存されているユーザー一覧の表示 -->
 <div class="container-list">
-  <table class="table table-hover">
-@foreach($users as $user)
-<!-- foreachで$usersから1つずつ$userとして取り出し表示させる -->
-<!-- 自分以外のユーザーを表示 -->
-<div>
-@if(!($user->username == Auth::user()->username))
-  {{$user->username}}
-  <img src="{{asset('storage/images/' .$user->images)}}" alt="ユーザーアイコン">
+  <!-- foreachで$usersから1つずつ$userとして取り出し表示させる -->
+  <!-- 自分以外のユーザーを表示 -->
+  <ul>
+    <li class="user-block">
+      @foreach($users as $user)
+       @if(!($user->username == Auth::user()->username))
+       <div class="user-box">
+        <div class="user-area">
+         <div class="search-image"><img src="{{asset('storage/images/' .$user->images)}}" alt="ユーザーアイコン"></div>
+          <div class="search-name">  {{$user->username}}  </div>
+        </div>
 
-<!-- ↓↓フォローボタンの設置(2024/1/21) -->
-<!-- csrfはform毎に記述が必要 -->
-@if (auth()->user()->isFollowing($user->id))
-<!-- <form action="users/{$id}/follow" method="POST">
-   @csrf
-   <button type="submit" class="unfollow-btn">フォロー解除</button>
-</form> -->
-<form action="{{ route('unfollow',['id' => $user->id]) }}" method="POST">
-   @csrf
-   <button type="submit" class="unfollow-btn">フォロー解除</button>
-</form>
+             <!-- ↓↓フォローボタンの設置(2024/1/21) -->
+             <!-- csrfはform毎に記述が必要 -->
+           @if (auth()->user()->isFollowing($user->id))
+          <form action="{{ route('unfollow',['id' => $user->id]) }}" method="POST">
+           @csrf
+            <button type="submit" class="unfollow-btn">フォロー解除</button>
+          </form>
 
-@else
-<!-- <form action="users/{$id}/unfollow" method="POST">
-   @csrf
-  <button type="submit" class="follow-btn">フォローする</button>
-</form> -->
-<form action="{{ route('follow',['id' => $user->id]) }}" method="POST">
-   @csrf
-  <button type="submit" class="follow-btn">フォローする</button>
-</form>
+          @else
+         <form action="{{ route('follow',['id' => $user->id]) }}" method="POST">
+          @csrf
+          <button type="submit" class="follow-btn">フォローする</button>
+         </form>
 
-@endif
+            @endif
+          </div>
+       @endif
+       @endforeach
+    </li>
+  </ul>
 </div>
-@endif
-@endforeach
 
-    <!-- ↓↓フォローされているかの判定(2024/1/12) -->
-<!-- @if (auth()->user()->isFollowed($user->id))
-<form action="/users/{{$user->id}}/Follow,"method="POST">
-   <button type="submit" class="unfollow-btn">フォロー解除</button>
-</form>
-@else
-<form action="/users/{{$user->id}}/unFollow,"method="POST">
-  <button type="submit" class="follow-btn">フォローする</button>
-</form>
-@endif -->
 
-    <!-- ↓↓フォローしているかの判定(2024/1/12) -->
-<!-- @if (auth()->user()->isFollowing($user->id))
-@endif -->
-
-</table>
-</div>
 
 
 

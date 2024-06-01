@@ -27,18 +27,21 @@
         <div id = "head">
                 <!-- ↓↓Atlasロゴにトップページへ遷移するリンクを設置する -->
         <h1><a href="/top"><img src="images/atlas.png" alt="Atlas"></a></h1>
-            <div id="accordion" class="accordion-container">
-                <!-- ↓↓ログイン後のページでの名前の表示 -->
-                <!-- <p>{{  Auth::user()->username  }}さん<img src="images/icon1.png"></p> -->
-                <p>{{  Auth::user()->username  }}さん<img src="{{asset('storage/images/'.Auth::user()->images)}}"></p>
-                <div class="accordion-switch">
-                 <ul class="accordion-contents">
-                    <li><a href="/top">ホーム</a></li>
-                    <li><a href="/profile">プロフィール編集</a></li>
-                    <li><a href="/logout">ログアウト</a></li>
-                 </ul>
-                </div>
+        <!-- ↓↓ログイン後のページでの名前の表示 -->
+        <p>{{  Auth::user()->username  }}  さん</p>
+
+        <!-- ↓↓アコーディオンメニュー -->
+            <div class="accordion">
+                <div class="accordion-switch"> </div>
+                  <div class="accordion-contents">
+                    <ul>
+                        <li class="box1"><a href="/top">HOME</a></li>
+                        <li class="box2"><a href="/profile">プロフィール編集</a></li>
+                        <li class="box3"><a href="/logout">ログアウト</a></li>
+                    </ul>
+                 </div>
             </div>
+         <div class="icon"><img src="{{asset('storage/images/'.Auth::user()->images)}}"></div>
         </div>
     </header>
 
@@ -51,16 +54,25 @@
                 <p>{{  Auth::user()->username  }}さんの</p>
                 <div>
                 <p>フォロー数</p>
-                <p>{{  Auth::user()->follows()->count()  }}名</p>
+                <p>{{  Auth::user()->follows()->count()  }}人</p>
                 </div>
-                <p class="btn"><a href="/follow-list">フォローリスト</a></p>
+                <!-- <p class="btn"><a href="/follow-list">フォローリスト</a></p> -->
+                <div class="button-container">
+                <button type="button" class="btn-follow-list"><a href="/follow-list">フォローリスト</a></button>
+                </div>
                 <div>
                 <p>フォロワー数</p>
-                <p>{{  Auth::user()->followers()->count()  }}名</p>
+                <p>{{  Auth::user()->followers()->count()  }}人</p>
                 </div>
-                <p class="btn"><a href="./follower-list">フォロワーリスト</a></p>
+                <!-- <p class="btn"><a href="./follower-list">フォロワーリスト</a></p> -->
+                <div class="button-container">
+                <button type="button" class="btn-follower-list"><a href="./follower-list">フォロワーリスト</a></button>
+                </div>
             </div>
-            <p class="btn"><a href="search">ユーザー検索</a></p>
+            <div class="search_button">
+            <!-- <p class="btn"><a href="search">ユーザー検索</a></p> -->
+                <button type="button" class="btn-search"><a href="search">ユーザー検索</a></button>
+            </div>
         </div>
     </div>
 
