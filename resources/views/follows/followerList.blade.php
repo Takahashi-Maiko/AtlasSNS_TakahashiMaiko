@@ -4,18 +4,20 @@
 
 
 <!-- ↓↓タイトル -->
-<h2>Follower List</h2>
+<div class=list>
+  <h2>フォロワーリスト</h2>
 
-<div class="container">
+    <div class="list-container">
 @foreach($followers as $follower)
 <!-- ↓↓自分をフォローしているユーザー(フォロワー)のアイコン一覧の表示 -->
 <!-- ↓↓他ユーザーのプロフィールページへの遷移 -->
 <!-- <form action="/users/{id}/otherprofile"> -->
-  <div class="follower-icon">
-    <a href="/users/{{ $follower->id }}/otherprofile">
-    <img src="{{asset('storage/images/'.$follower->images)}}" alt="フォロワーアイコン"></a>
+      <div class="follower-icon">
+        <a href="/users/{{ $follower->id }}/otherprofile">
+          <img src="{{asset('storage/images/'.$follower->images)}}" alt="フォロワーアイコン"></a>
+    </div>
+    @endforeach
   </div>
-@endforeach
 </div>
 
 @foreach($post as $posts)

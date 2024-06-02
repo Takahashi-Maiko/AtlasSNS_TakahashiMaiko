@@ -2,19 +2,21 @@
 
 @section('content')
 
-<!-- ↓↓タイトル -->
-<h2>Follow List</h2>
+<div class="list">
+  <h2>フォローリスト</h2>
 
-<div class="container">
+    <div class="list-container">
   @foreach($follows as $follow)
-<!-- ↓↓フォローしているユーザーのアイコン一覧の表示 -->
-<!-- ↓↓他ユーザーのプロフィールページへの遷移 -->
-  <form action="/users/{id}/otherprofile">
-  <div class="follow-icon">
-   <a href="/users/{{ $follow->id }}/otherprofile">
-   <img src="{{asset('storage/images/'.$follow->images)}}" alt="フォローアイコン"></a></div>
-  </form>
+    <!-- ↓↓フォローしているユーザーのアイコン一覧の表示 -->
+    <!-- ↓↓他ユーザーのプロフィールページへの遷移 -->
+      <form action="/users/{id}/otherprofile">
+        <div class="follow-icon">
+          <a href="/users/{{ $follow->id }}/otherprofile">
+            <img src="{{asset('storage/images/'.$follow->images)}}" alt="フォローアイコン"></a>
+        </div>
+      </form>
   @endforeach
+    </div>
 </div>
 
 

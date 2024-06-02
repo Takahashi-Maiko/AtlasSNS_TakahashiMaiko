@@ -92,7 +92,7 @@ class UsersController extends Controller
             'password' => 'required|confirmed|min:8|max:20|alpha_num',   //confirmedでpassword_confirmationとパスワードが一致するか確認する。
             'password_confirmation' => 'required|min:8|max:20|alpha_num',
             'bio' => 'max:150',
-            'iconimage' => 'required|file|image|mimes:png,jpeg,bmp,gif,svg',
+            'iconimage' => 'file|image|mimes:png,jpeg,bmp,gif,svg',
         ]);
         // ↑↑DBに登録済みのメールアドレスはバリデーションで引っかかるように設定したい。
         // unique('users')にするとusersテーブルに登録されているメールアドレスすべて＝ログインしているユーザーのメールアドレスも引っかかってしまう。
