@@ -256,6 +256,7 @@ h1 img {
 textarea {
     height: 20vh;
     width: 50vw;
+    resize: none;
 }
 
 .modal__content input {
@@ -277,16 +278,16 @@ textarea {
 .container {
     border-bottom: solid 10px #dcdcdc;
     display: flex;
-    height: 25%;
+    /* height: 25%; */
     width: 100%;
     margin-top: 2rem;
 }
 
 
-/* .form-group input {
-    left: 0%;
-    top: 0rem;
-} */
+.form-group textarea {
+    resize: none;
+    border: none;
+}
 
 
 

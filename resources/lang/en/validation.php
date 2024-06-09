@@ -141,22 +141,22 @@ return [
     'mail' => 'メールアドレス',
     'password' => 'パスワード',
     'password_confirmation' => 'パスワード確認',    //regex:/^[a-zA-Z0-9]+$/=正規表現の「半角英数字のみ(空文字OK)」
-            'username.required' => 'ユーザー名は入力必須です。',
-            'username.min' => 'ユーザー名は2文字以上で入力してください。',
-            'username.max' => 'ユーザー名は12文字以下で入力してください。',
+            // 'username.required' => 'ユーザー名は入力必須です。',
+            // 'username.min' => 'ユーザー名は2文字以上で入力してください。',
+            // 'username.max' => 'ユーザー名は12文字以下で入力してください。',
 
-            'mail.required' => 'メールアドレスは入力必須です。',
-            'mail,min' => 'メールアドレスは5文字以上で入力してください。',
-            'mail.max' => 'メールアドレスは20文字以下で入力してください。',
-            'mail.unique' => '登録済みのメールアドレスは使用不可です。',
-            'mail.email' => 'メールアドレスの形式で入力してください。',
+            // 'mail.required' => 'メールアドレスは入力必須です。',
+            // 'mail,min' => 'メールアドレスは5文字以上で入力してください。',
+            // 'mail.max' => 'メールアドレスは20文字以下で入力してください。',
+            // 'mail.unique' => '登録済みのメールアドレスは使用不可です。',
+            // 'mail.email' => 'メールアドレスの形式で入力してください。',
 
-            'password.required' => 'パスワードは入力必須です。',
-            'password.regex' => 'パスワードは英数字のみで入力してください。',
-            'password.min' => 'パスワードは8文字以上で入力してください。',
-            'password.max' =>'パスワードは20文字以下で入力してください。',
-            'password.confirmation' => 'パスワードが一致していません。',
-            'password_confirmation.required' => 'パスワード確認は入力必須です。'
+            // 'password.required' => 'パスワードは入力必須です。',
+            // 'password.regex' => 'パスワードは英数字のみで入力してください。',
+            // 'password.min' => 'パスワードは8文字以上で入力してください。',
+            // 'password.max' =>'パスワードは20文字以下で入力してください。',
+            // 'password.confirmation' => 'パスワードが一致していません。',
+            // 'password_confirmation.required' => 'パスワード確認は入力必須です。'
 ],
 
     /*

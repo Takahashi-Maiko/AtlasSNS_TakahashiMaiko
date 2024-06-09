@@ -15,10 +15,12 @@ h1 img {
     padding-bottom: 0%;
 }
 
-p {
+header p {
     color: #f0f8ff;
     margin-bottom: 5%;
     font-size: 27px;
+    font-weight: bold;
+    white-space: nowrap
 }
 
 body {
@@ -98,10 +100,10 @@ input[type="submit" i] {
     border: none;
 }
 
-a {
+/* a {
     color: #f0f8ff;
     font-size: 15px;
-}
+} */
 
 /* ↓↓新規登録画面のフォーム */
 .registerform-box {
@@ -137,17 +139,21 @@ a {
     color: #f0f8ff;
     background: #ff1c68;
     border-radius: 7px;
-    width: 45%;
-    height: 30%;
-    margin-left: 35%;
+    width: 10vw;
+    height: 5vh;
+    /* margin-left: 35%; */
     margin-top: 5%;
     margin-bottom: 5%;
     text-align: center;
 }
 
 .btn a {
-    text-align: center;
-    padding: auto;
+    position: relative;
+    display: block;
+    color: #f0f8ff;
+    font-size: 15px;
+    margin-top: 1vh;
+    /* vertical-align: middle; */
 }
 
 /* p a {
