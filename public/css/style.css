@@ -6,6 +6,7 @@ html {
 
 body {
     min-height: 100%;
+    height: 100%;
 }
 
 
@@ -113,6 +114,7 @@ h1 img {
 #row {
     display: flex;
     flex-flow: row wrap;
+    height: 100%;
 }
 
 #container {
@@ -252,7 +254,7 @@ h1 img {
 }
 
 textarea {
-    height: 25vh;
+    height: 20vh;
     width: 50vw;
 }
 
@@ -281,11 +283,11 @@ textarea {
 }
 
 
-.form-group input {
-    /* position: relative; */
+/* .form-group input {
     left: 0%;
     top: 0rem;
-}
+} */
+
 
 
 .form-control {
@@ -295,15 +297,15 @@ textarea {
     border: none;
 }
 
-/* ::placeholder {
-    position: relative;
-    margin-top: 0%;
+/* textarea .text-box {
+    height: 20vh;
 } */
 
+
 .tweet-btn {
-    margin-right: 3em;
+    margin-left: 1rem;
     position: absolute;
-    margin-top: 3rem;
+    margin-top: 5rem;
     height: 50px;
     width: 50px;
     background-image: url(../images/post.png);

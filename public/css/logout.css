@@ -123,13 +123,33 @@ a {
     padding-top: 2rem;
 }
 
+.login-name {
+    font-weight: bold;
+}
+
+.atlas {
+    font-weight: bold;
+}
+
 /* ↓↓"ログイン画面へ" のボタン  */
-/* .btn {
+.btn {
+    position: relative;
     color: #f0f8ff;
     background: #ff1c68;
     border-radius: 7px;
     width: 45%;
+    height: 30%;
     margin-left: 35%;
     margin-top: 5%;
     margin-bottom: 5%;
+    text-align: center;
+}
+
+.btn a {
+    text-align: center;
+    padding: auto;
+}
+
+/* p a {
+    text-align: center;
 } */

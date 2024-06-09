@@ -14,7 +14,8 @@
   {{ Form::token() }}
   <div class="form-group">
     <input type="image" name="images" value=""><img src="{{asset('storage/'.Auth::user()->images)}}" alt="">
-    {{ Form::input('text','newPost',null,['required','class' => 'form-control','placeholder' => '投稿内容を入力して下さい'])}}
+    <!-- {{ Form::input('text','newPost',null,['required','class' => 'form-control','placeholder' => '投稿内容を入力して下さい'])}} -->
+    <textarea name="text-box" id="" cols="30" rows="10" maxlength="150" placeholder="投稿内容を入力して下さい"></textarea>
     <button type="submit" class="tweet-btn"></button>
     {!! Form::close() !!}
   </div>
