@@ -33,7 +33,7 @@ class PostsController extends Controller
         $validator = $request->validate([   //バリデーションの設定：入力必須・1～150文字以内
             'newPost' => ['required','string','max:150'],   //入力必須・文字であること・150文字以内   newPostはname属性
         ]);
-        $post = $request->input('newpost');
+        $post = $request->textarea('newpost');
         Post::create([   //Postテーブルに入れる
             'user_id' => Auth::user()->id,   //Auth::user()はusersテーブルのカラムからログインしているユーザーのidを取得(ツイートしたユーザー)
             'post' => $request->newPost,   //つぶやきの内容
