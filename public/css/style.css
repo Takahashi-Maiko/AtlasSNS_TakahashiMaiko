@@ -553,15 +553,21 @@ textarea {
     position: relative;
     display: flex;
     border-bottom: #dcdcdc solid 10px;
-    height: 20vh;
+    /* height: 20vh; */
 }
 
 .list-container {
     display: flex;
     margin-top: 1rem;
     margin-left: 1rem;
-    width: 50%;
+    width: 60%;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
 
+.list-container form {
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 h2 {
