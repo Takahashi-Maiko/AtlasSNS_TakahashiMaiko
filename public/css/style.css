@@ -306,7 +306,7 @@ textarea {
 .tweet-btn {
     margin-left: 1rem;
     position: absolute;
-    margin-top: 5rem;
+    margin-top: 3rem;
     height: 50px;
     width: 50px;
     background-image: url(../images/post.png);
@@ -347,7 +347,7 @@ textarea {
 
 .icon {
     width: 7%;
-    height: 7%;
+    /* height: 7%; */
     margin-left: 5rem;
 }
 
@@ -367,7 +367,6 @@ textarea {
 /* 削除ボタン */
 .delete-btn {
     position: relative;
-    bottom: 0;
 }
 
 .delete-btn img {
@@ -377,12 +376,13 @@ textarea {
     /* -webkit-transform: translate(-50%, -50%); */
     transform: translate(-50%, -50%);
     display: block;
-    /* width: 2.3vw;
-    height: 4vh; */
+    height: 4vh;
+    width: 2vw;
     border-radius: 5px;
     background-color: #FFF;
-    width: 25px;
+    overflow: hidden;
 }
+
 
 
 
@@ -560,6 +560,7 @@ textarea {
     display: flex;
     margin-top: 1rem;
     margin-left: 1rem;
+    width: 50%;
 
 }
 

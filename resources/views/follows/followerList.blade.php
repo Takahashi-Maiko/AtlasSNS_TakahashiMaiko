@@ -27,7 +27,7 @@
     <!-- $posts->user->usernameのuserはリレーションの記述のuserメソッドを使っている。 -->
     <div class="icon">
       <!-- ↓↓他ユーザーのプロフィールページへの遷移 -->
-       <a href="/users/{{ $follower->id }}/otherprofile">
+       <a href="/users/{{ $posts->user->id }}/otherprofile">
         <img class="icon-img" src="{{asset('storage/images/'.$posts->user->images)}}" alt="フォロワーアイコン"></a></div>
        <div class=post-content>
         <div>
